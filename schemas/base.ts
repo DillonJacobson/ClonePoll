@@ -74,21 +74,3 @@ export class Schema {
         return filter;
     }
 }
-
-export class UserSchema extends Schema {
-    constructor() {
-        super("User");
-    }
-}
-
-export class PollSchema extends Schema {
-    constructor() {
-        super("Poll");
-    }
-}
-
-export class AnswerSchema extends Schema{
-    constructor(){
-        super("Answer")
-    }
-}
