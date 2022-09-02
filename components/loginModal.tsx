@@ -1,7 +1,7 @@
-import { NextPage } from 'next'
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import InputError from './inputError'
-import TextInput from './textInputs'
+import { FormEvent, useEffect, useState } from 'react'
+import { ResponseBody } from '../types'
+import InputError from './generic/inputError'
+import TextInput from './generic/textInputs'
 
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 
 
 
-const LoginModal:NextPage<Props> = ({showModal, closeModal}) => {
+const LoginModal:React.FC<Props> = ({showModal, closeModal}) => {
     let [email, setEmail] = useState("")
     let [password, setPassword] = useState("")
     let [username, setUsername] = useState("")
@@ -21,10 +21,9 @@ const LoginModal:NextPage<Props> = ({showModal, closeModal}) => {
     async function handleLogin(e:FormEvent){
         e.preventDefault()
         console.log("Submitting")
-        await fetch('/api/v1/users/create', {
+        await fetch('/api/v1/users/login', {
             method:"POST",
             body: JSON.stringify({
-                username,
                 email,
                 password
             }),
@@ -32,7 +31,11 @@ const LoginModal:NextPage<Props> = ({showModal, closeModal}) => {
                 'Content-Type': 'application/json'
             }
         }).then( async (res) => {
-            console.log(await res.json())
+            let data:ResponseBody = await res.json()
+            if (data.statusCode !== 200){
+                setError(true)
+                setErrorMessage(data.statusMessage)
+            }
         }).catch((err) => {
             setError(true)
 			setErrorMessage(err)
@@ -61,16 +64,14 @@ const LoginModal:NextPage<Props> = ({showModal, closeModal}) => {
                 onMouseDown={(e)=>{e.stopPropagation()}}
             >
                 <h3 className="text-center font-bold mb-4 text-white">
-                    Register to create polls!
+                    Login to create/view your polls!
                 </h3>
                 <form
-                    action="/api/v1/users/login"
-                    method="post"
                     className="flex flex-col justify-center text-white text-sm space-y-3 w-max"
                     onSubmit={(event) => {handleLogin(event)}}
                 >
-                    <TextInput name="email" label='Email/Username:' type="email" onChange={(e) => {setEmail(e.target.value)}} />
-                    <TextInput name="password" label='Password:' type='password' onChange={(e) => {setPassword(e.target.value)}} />
+                    <TextInput name="email" label='Email/Username:' type="email" onChange={(e) => {setEmail(e.target.value)}} hasError={error} />
+                    <TextInput name="password" label='Password:' type='password' onChange={(e) => {setPassword(e.target.value)}} hasError={error} />
                     <InputError render={error} message={errorMessage}></InputError>
                     <button
                         className="px-5 py-2 !mt-6 font-semibold text-white bg-indigo-500 hover:bg-indigo-700 shadow-lg rounded-lg"

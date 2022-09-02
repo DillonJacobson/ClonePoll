@@ -1,4 +1,3 @@
-import { NextPage } from "next";
 
 type Props = {
     name: string;
@@ -8,7 +7,7 @@ type Props = {
     placeholder?: string;
 };
 
-const TextArea:NextPage<Props> = (
+const TextArea:React.FC<Props> = (
 	{
 		name,
 		label,

@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import React from "react";
 
 type Props = {
     name: string;
@@ -7,17 +7,20 @@ type Props = {
     onChange: (e: any) => void;
     onBlur?: () => void;
     placeholder?: string;
+    hasError: boolean,
+    required?: boolean
 };
 
-const TextInput: NextPage<Props> = ({
+const TextInput: React.FC<Props> = ({
     name,
     label,
     onChange,
     onBlur,
     type,
     placeholder,
+    hasError
 }) => {
-    let classes = `rounded-md py-2 px-3 bg-slate-500 focus:ring-2 focus:ring-blue-500 focus:outline-0 w-96`
+    let classes = `rounded-md py-2 px-3 bg-slate-500 ${hasError ? 'ring-2 ring-red-500' : ''} focus:ring-2 focus:ring-blue-500 focus:outline-0 w-96`
 
     return (
         <div className="text-white">

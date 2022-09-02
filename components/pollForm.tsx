@@ -1,16 +1,15 @@
-import {NextPage} from 'next';
 import { useState } from 'react';
-import AnswerOptions from './answerOptionInput';
-import SwitchInput from './switch';
-import TextArea from './textArea';
-import TextInput from './textInputs';
+import AnswerOptions from './generic/answerOptionInput';
+import SwitchInput from './generic/switch';
+import TextArea from './generic/textArea';
+import TextInput from './generic/textInputs';
 
 type PollProps = {
 
 }
 
 
-const PollForm:NextPage<PollProps> = () => {
+const PollForm:React.FC<PollProps> = () => {
 	let [title, setTitle] = useState('')
 	let [description, setDescription] = useState('')
 	let [showDescription, setShowDescription] = useState(false)
@@ -18,8 +17,8 @@ const PollForm:NextPage<PollProps> = () => {
 
 	return (
 		<div className='bg-slate-700 px-12 py-12 rounded-xl border-t-8 border-blue-500'>
-			<h2 className='text-white font-bold text-3xl pb-4 text-center'>Create your poll!</h2>
-			<form className='space-y-4'>
+			<h2 className='text-white font-bold text-3xl pb-4 text-center'>Create a new poll</h2>
+			<form className='space-y-4' action='/api/v1/polls' method='POST'>
 				<TextInput name='title' label='Title:' type='text' placeholder='Your Question Here...' onChange={(e)=>{setTitle(e.target.value)}} />
 				<div className={`pt-0 !mt-0 ${showDescription ? 'hidden' : 'inline-block'}`}>
 					<span className=' text-xs text-slate-400 hover:text-slate-200 cursor-pointer' onClick={() => {setShowDescription(true)}}>+ Add Description</span>

@@ -1,9 +1,8 @@
-import { NextPage } from "next";
 import Link from "next/link";
 
 type Props = {};
 
-const Footer: NextPage<Props> = () => {
+const Footer: React.FC<Props> = () => {
     return (
         <footer className="z-40 bg-slate-800 ring-1 ring-gray-700 shadow-sm">
             <div className="container mx-auto max-w-4xl pt-8 pb-3 flex flex-col justify-center items-center text-slate-400">

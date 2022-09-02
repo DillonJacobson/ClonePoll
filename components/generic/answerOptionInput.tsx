@@ -1,4 +1,3 @@
-import { NextPage } from "next";
 import { useState } from "react";
 
 type AnswerProps = {
@@ -10,7 +9,7 @@ type AnswerProps = {
 	required: boolean
 }
 
-const AnswerInput:NextPage<AnswerProps> = ({
+const AnswerInput:React.FC<AnswerProps> = ({
 	index,
     onChange,
     onBlur,
@@ -46,7 +45,7 @@ interface answerSchema {
 }
 
 
-const AnswerOptions:NextPage = () =>{
+const AnswerOptions:React.FC = () =>{
 	let initialAnswerState: Array<answerSchema> = [
 		{id: 0, text:'', uuid:''},
 		{id: 1, text:'', uuid:''}

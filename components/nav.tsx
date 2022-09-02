@@ -1,12 +1,11 @@
-import {NextPage} from 'next'
-import NavLink from './navLink'
+import NavLink from './generic/navLink'
 
 type props = {
 	openRegisterModal: (e:any) => void
 	openLoginModal: (e:any) => void
 }
 
-const Nav:NextPage<props> = ({openRegisterModal, openLoginModal}) => {
+const Nav:React.FC<props> = ({openRegisterModal, openLoginModal}) => {
 
 	return (
 		<div className='flex flex-row justify-between text-white items-center bg-slate-800 max-w-7xl py-2 mx-auto lg:px-8'>
